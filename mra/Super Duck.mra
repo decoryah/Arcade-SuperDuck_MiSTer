@@ -1,0 +1,75 @@
+<misterromdescription>
+    <name>Super Duck</name>
+    <setname>supduck</setname>
+    <mameversion>0289</mameversion>
+    <year>1992</year>
+    <manufacturer>Comad</manufacturer>
+    <players>2</players>
+    <joystick>4</joystick>
+    <rotation>horizontal</rotation>
+    <rbf>supduck</rbf>
+    <platform>Comad</platform>
+
+    <!--
+      Image for the Super Duck core (rtl/sd_mem.sv, tools/supduck_image.py):
+
+        0x000000  68000 program (256 KB, each word low byte first)
+        0x040000  FG tiles (512 KB)         0x0C0000  BG tiles (512 KB)         0x140000  sprites (512 KB)
+        0x1C0000  OKI M6295 samples: the fixed 128 KB, then the four 128 KB banks
+        0x260000  Z80 program (32 KB)       0x268000  characters (32 KB)
+
+      Made by tools/make_mra.py from MAME 0.289 (src/mame/capcom/supduck.cpp); parts are found by name and CRC.
+
+      DIP switches (ioctl index 254): byte 0 is DIP-A (bits 7:0 of MAME's DSW port), byte 1 is DIP-B (bits 15:8); a 1 is
+      "off".  MAME's default is FFBF.
+    -->
+    <switches default="BF,FF" base="16">
+        <dip bits="0,2" name="Coinage" ids="5C/1C,4C/1C,3C/1C,2C/1C,1C/4C,1C/3C,1C/2C,1C/1C"/>
+        <dip bits="3" name="DIP-A:4 - Unknown" ids="On,Off"/>
+        <dip bits="4" name="Demo Sounds" ids="Off,On"/>
+        <dip bits="5" name="Game Sound" ids="Off,On"/>
+        <dip bits="6,7" name="Lives" ids="5,4,3,2"/>
+        <dip bits="8" name="DIP-B:1 - Unknown" ids="On,Off"/>
+        <dip bits="9" name="DIP-B:2 - Unknown" ids="On,Off"/>
+        <dip bits="10" name="DIP-B:3 - Unknown" ids="On,Off"/>
+        <dip bits="11" name="DIP-B:4 - Unknown" ids="On,Off"/>
+        <dip bits="12" name="DIP-B:5 - Unknown" ids="On,Off"/>
+        <dip bits="13" name="DIP-B:6 - Unknown" ids="On,Off"/>
+        <dip bits="14" name="Character Test" ids="On,Off"/>
+        <dip bits="15" name="Service Mode" ids="On,Off"/>
+    </switches>
+
+    <rom index="0" zip="supduck.zip" md5="eaf23b3e3ca6f83cf747b401f0a1c9dd" address="0x32000000">
+        <!-- maincpu: the 68000 program, each word low byte first -->
+        <interleave output="16">
+            <part name="6.u16l" crc="508e9905" offset="0x0" length="0x20000" map="01"/>
+            <part name="5.u16n" crc="837a559a" offset="0x0" length="0x20000" map="10"/>
+        </interleave>
+        <!-- fgtiles: the FG tile ROM (the core remaps it as it loads) -->
+        <part name="7.uu29" crc="f3251b20" offset="0x0" length="0x20000"/>
+        <part name="8.uu30" crc="03c60cbd" offset="0x0" length="0x20000"/>
+        <part name="9.uu31" crc="9b6d3430" offset="0x0" length="0x20000"/>
+        <part name="10.uu32" crc="beed2616" offset="0x0" length="0x20000"/>
+        <!-- bgtiles: the BG tile ROM -->
+        <part name="11.ul29" crc="1b6958a4" offset="0x0" length="0x20000"/>
+        <part name="12.ul30" crc="3e6bd24b" offset="0x0" length="0x20000"/>
+        <part name="13.ul31" crc="bff7b7cd" offset="0x0" length="0x20000"/>
+        <part name="14.ul32" crc="97a7310b" offset="0x0" length="0x20000"/>
+        <!-- spritegen: the sprite ROM, ROM_LOAD32_BYTE -->
+        <interleave output="32">
+            <part name="15.u1d" crc="81bf1f27" offset="0x0" length="0x20000" map="0001"/>
+            <part name="16.u2d" crc="9573d6ec" offset="0x0" length="0x20000" map="0010"/>
+            <part name="17.u1c" crc="21ef14d4" offset="0x0" length="0x20000" map="0100"/>
+            <part name="18.u2c" crc="33dd0674" offset="0x0" length="0x20000" map="1000"/>
+        </interleave>
+        <!-- oki: the fixed samples, then okibank: the four banks -->
+        <part name="2.su12" crc="745d42fb" offset="0x0" length="0x20000"/>
+        <part name="1.su13" crc="7fb1ed42" offset="0x0" length="0x80000"/>
+        <!-- audiocpu: the Z80 program (32 KB) -->
+        <part name="4.su6" crc="d75863ea" offset="0x0" length="0x8000"/>
+        <!-- chars: the text layer's characters -->
+        <part name="3.cu15" crc="b1cacca4" offset="0x0" length="0x8000"/>
+    </rom>
+
+    <buttons names="Shot,Jump,Start,Coin" default="A,B,Start,Select"/>
+</misterromdescription>
