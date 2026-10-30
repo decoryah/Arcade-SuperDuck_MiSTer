@@ -3,9 +3,9 @@
 Every number below is from MAME 0.289 and Verilator / Quartus runs on the owner's machine; the scripts are in `../tools/`
 (`tools/paths.py` says where they look for MAME, the romset and the scratch folder `work/`), the benches in `../sim/`.
 
-**On a real MiSTer** (the owner's, 2026-10-30, the first build of `supduck_20261030`): "Game runs well".  The released
-`supduck_20261030.rbf` is that RTL without the OSD's SDRAM read capture item (the capture fixed at Normal, the setting tested;
-`SuperDuck.sv`); it was not tested on the board again.
+**On a real MiSTer** (the owner's, 2026-10-30): the first build of `supduck_20261030`, "Game runs well"; then the released
+`supduck_20261030.rbf`, the same RTL without the OSD's SDRAM read capture item (the capture fixed at Normal, the setting the first
+build ran on; `SuperDuck.sv`), "Change was ok".
 
 ## The board (from MAME's `src/mame/capcom/supduck.cpp` and `tigeroad_spr.cpp`, kept in `../../ref/mame/`)
 
